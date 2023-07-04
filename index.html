@@ -26,19 +26,21 @@
   </script>
 <script>
 function replaceText() {
-  // 获取页面上的所有文本节点
-  const textNodes = document.querySelectorAll(":not(iframe):not(script):not(style):not(br):not(meta):not(link)");
+// 获取页面上的所有 input 元素
+const inputElements = document.querySelectorAll("input[type='text'], input[type='search']");
 
-  // 替换文本节点中的内容
-  textNodes.forEach(node => {
-    const regex = /https:\/\/image\.114519\.xyz\/([^"']+)/g; // 匹配 image.114519.xyz 的正则表达式
-    const replacement = "https://image114519xyz.cachefly.net/$1"; // 替换为 image114519xyz.cachefly.net
+// 替换 input 元素中的内容
+inputElements.forEach(input => {
+  const originalValue = input.value;
+  const regex = /https:\/\/image\.114519\.xyz\/([^"']+)/g; // 匹配 image.114519.xyz 的正则表达式
+  const replacement = "https://image114519xyz.cachefly.net/$1"; // 替换为 image114519xyz.cachefly.net
 
-    const modifiedText = node.textContent.replace(regex, replacement);
-    if (modifiedText !== node.textContent) {
-      node.textContent = modifiedText;
-    }
-  });
+  const modifiedValue = originalValue.replace(regex, replacement);
+  if (modifiedValue !== originalValue) {
+    input.value = modifiedValue;
+  }
+});
+
 }
 
 // 每秒运行一次 replaceText 函数
